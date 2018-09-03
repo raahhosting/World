@@ -25,7 +25,7 @@
         <!-- LOGO -->
         <div class="col-md-3">
           <div class="header-logo">
-            <a href="#" class="logo">
+            <a href="/" class="logo">
               <h2><span style="color:white;">World</span><span style="color:#D10024;">Softwares</span></h2>
             </a>
           </div>

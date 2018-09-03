@@ -1,3 +1,9 @@
+@extends('layout.app')
+@include('inc.header')
+@include('inc.nav')
+@section('content')
+
+
 <div id="breadcrumb" class="section">
   <!-- container -->
   <div class="container">
@@ -189,9 +195,12 @@
         <a href="#" class="primary-btn order-submit">Place order</a>
       </div>
       <!-- /Order Details -->
+
     </div>
     <!-- /row -->
   </div>
   <!-- /container -->
 </div>
 <!-- /SECTION -->
+
+@endsection
