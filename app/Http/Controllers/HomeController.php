@@ -17,7 +17,7 @@ class HomeController extends Controller
         $downloads = Download::inRandomOrder()->take(8)->get();
         $popular  = Download::orderBy('downloads', 'DESC')->take(5)->get();
 		    $mostlike = Download::orderBy('likes', 'DESC')->take(5)->get();
-		    $alsolike = Download::orderByRaw("RAND()")->where('slug', '!=', $slug)->take(3)->get();
+		    // $alsolike = Download::orderByRaw("RAND()")->where('slug', '!=', $slug)->take(3)->get();
 
         return view('home')->with('downloads',$downloads);
     }
