@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
@@ -34,8 +35,21 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $duplicates = Cart::search(function($cartItem,$rowId) use ($request){
+
+        return $cartItem->id ===$request->id;
+      });
+      if($duplicates->isNotEmpty()){
+        return redirect()->route('cart.index');
+      }
+        Cart::add($request->id,$request->title,1, $request->price)
+              ->associate('App\Download');
+
+              return redirect()->route('cart.index');
     }
+
+
+
 
     /**
      * Display the specified resource.
@@ -79,6 +93,8 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cart::remove($id);
+
+        return back()->with('success_message','Item has been deleted');
     }
 }

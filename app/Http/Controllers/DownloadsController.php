@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Download;
+use Cart;
+
 
 class DownloadsController extends Controller
 {
@@ -17,8 +19,9 @@ class DownloadsController extends Controller
       ]);
     $query = $request->input('query');
 
-    $downloads = Download::where('title','like',"%$query%")->get();
+    // $downloads = Download::where('title','like',"%$query%")->get();
                            // ->orWhere('description', 'like', "%$query%");
+    $downloads = Download::search($query)->get();
 
     return view('software.search-results')->with('downloads',$downloads);
   }

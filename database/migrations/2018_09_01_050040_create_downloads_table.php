@@ -22,7 +22,7 @@ class CreateDownloadsTable extends Migration
 			      $table->string('file')->nullable()->default('');
 			      $table->string('tags_relationship', 100)->nullable();
 			      $table->integer('active');
-             $table->integer('price');
+            $table->decimal('price', 8, 2);
 			      $table->integer('likes')->default(0);
 			      $table->integer('downloads')->default(0);
 			      $table->integer('category_id');

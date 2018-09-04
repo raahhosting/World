@@ -3,71 +3,102 @@
 @section('content')
 
 
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-md-offset-1">
 
-  <div class="row">
+          @if(Cart::count()>0)
+<h2>{{Cart::count()}} item(s) in the Shopping Cart</h2>
 
-    <div class="col-md-6 col-sm-6">
-      <div class="cart-list">
-        <div class="product-widget">
-          <div class="product-img">
-            <img src="./img/product01.png" alt="">
-          </div>
-          <div class="product-body">
-            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-          </div>
 
+
+            <table class="table table-hover">
+
+                <thead>
+                    <tr>
+                        <th>Software</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                  @foreach(Cart::content() as $item)
+
+                    <tr>
+                        <td class="col-sm-3 col-md-3">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="{{route('software.show',$item->model->slug)}}"> <img class="media-object" src="{{asset('./img/'.$item->model->image)}}" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="{{route('software.show',$item->model->slug)}}">{{$item->model->title}}</a></h4>
+                                <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
+
+                            </div>
+                        </div></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{$item->model->price}}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{$item->model->price}}</strong></td>
+                        <td class="col-sm-1 col-md-1">
+
+                          <!-- <button type="button" class="btn btn-danger">
+                              <span class="glyphicon glyphicon-remove"></span><a href="">
+                               Remove</a>
+                          </button> -->
+                          <form action="{{route('cart.destroy', $item->rowId) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE')}}
+                            <button type="submit" class="cart-options">Remove</button>
+
+                          </form>
+
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>
+
+                          <h5>Subtotal</h5></td>
+                        <td class="text-right"><h5><strong>${{$item->subtotal()}}</strong></h5></td>
+                    </tr>
+  @endforeach
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3>Total</h3></td>
+                        <td class="text-right"><h3><strong>${{Cart::total()}}</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+
+                        <td>
+                          <div class="cart-btns">
+
+                            <a href="#">Continue Shopping <i class="fa fa-arrow-circle-right"></i></a>
+                          </div></td>
+                        <td>
+                          <div class="cart-btns">
+
+                            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                          </div></td>
+                    </tr>
+                </tbody>
+            </table>
+            @else
+            <h2>No Softwares in the Cart.</h2>
+          @endif
         </div>
-
-
-        <div class="cart-summary">
-          <small>3 Item(s) selected</small>
-          <h5>SUBTOTAL: $2940.00</h5>
-        </div>
-        <div class="cart-btns">
-          <a href="#">View Cart</a>
-          <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-        </div>
-
     </div>
-
-  </div>
-
 </div>
-    <!-- <div class="cart-list">
-      <div class="product-widget">
-        <div class="product-img">
-          <img src="./img/product01.png" alt="">
-        </div>
-        <div class="product-body">
-          <h3 class="product-name"><a href="#">product name goes here</a></h3>
-          <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-        </div>
-        <button class="delete"><i class="fa fa-close"></i></button>
-      </div>
-
-      <div class="product-widget">
-        <div class="product-img">
-          <img src="./img/product02.png" alt="">
-        </div>
-        <div class="product-body">
-          <h3 class="product-name"><a href="#">product name goes here</a></h3>
-          <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-        </div>
-        <button class="delete"><i class="fa fa-close"></i></button>
-      </div>
-    </div>
-    <div class="cart-summary">
-      <small>3 Item(s) selected</small>
-      <h5>SUBTOTAL: $2940.00</h5>
-    </div>
-    <div class="cart-btns">
-      <a href="#">View Cart</a>
-      <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-    </div>
-
-<!-- /Cart --> -->
 
 
 @endsection

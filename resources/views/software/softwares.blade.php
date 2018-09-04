@@ -34,7 +34,7 @@
 
   <div class="product-img">
 
-    <img src="{{$download->image}}" alt="">
+    <img src="{{ asset('img/'. $download->image) }}" alt="">
 
   </div><h1 class="title-text" title="Avast Antivirus 18.6.2349">
     <span itemprop="name">{{$download->title}}</span>
@@ -100,7 +100,16 @@ Avast Software</a>
 
       <div class="add-to-cart">
 
-        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+        <!-- <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button> -->
+
+        <form action="{{route('cart.store')}}" method="post">
+          {{csrf_field() }}
+         <input type="hidden" name="id" value="{{$download->id}}" />
+          <input type="hidden" name="title" value="{{$download->title}}" />
+           <input type="hidden" name="price" value="{{$download->price}}" />
+           <input type="hidden" name="price" value="{{$download->image}}" />
+          <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+        </form>
       </div>
 
 
