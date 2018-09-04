@@ -4,9 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Download;
+use Cart;
+
 
 class DownloadsController extends Controller
 {
+
+
+
+  public function search(Request $request){
+      $request->validate([
+
+        'query'=>'required|min:3',
+      ]);
+    $query = $request->input('query');
+
+    // $downloads = Download::where('title','like',"%$query%")->get();
+                           // ->orWhere('description', 'like', "%$query%");
+    $downloads = Download::search($query)->get();
+
+    return view('software.search-results')->with('downloads',$downloads);
+  }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +65,7 @@ class DownloadsController extends Controller
     public function show($slug)
     {
         $download = Download::where('slug',$slug)->firstOrFail();
-        
+
 
         return view('software.softwares')->with('download',$download);
     }
