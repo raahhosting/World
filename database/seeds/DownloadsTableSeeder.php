@@ -52,6 +52,42 @@ class DownloadsTableSeeder extends Seeder
       'created_at' => '2017-03-24 18:17:37',
       'updated_at' => '2017-03-24 18:17:37',
   ),
+  34 =>
+array (
+'id' => 4,
+'title' => 'AVG Technologies ',
+'image' => './img/avg.png',
+'slug' => 'avg-antivirus',
+'description' => 'AVG AntiVirus FREE is AVG’s brand new product for ensuring your safety and security online. It is powerful, feature rich, and has a newly designed, ...',
+'file' => 'https://filehippo.com/download_avg-antivirus-free/',
+'tags_relationship' => NULL,
+'active' => 1,
+'price'=>78,
+'likes' => 0,
+'downloads' => 0,
+'category_id' => 4,
+'time_download' => '2017-03-24 11:17:37',
+'created_at' => '2017-03-24 18:17:37',
+'updated_at' => '2017-03-24 18:17:37',
+),
+12 =>
+array (
+'id' => 6,
+'title' => 'Recuva',
+'image' => './img/adobe.png',
+'slug' => 'avg-antivirus',
+'description' => 'Recuva (pronounced "recover") is a freeware Windows utility that can help you to restore your files, which have been accidentally deleted from your ...',
+'file' => 'https://filehippo.com/download_recuva/',
+'tags_relationship' => NULL,
+'active' => 1,
+'price'=>78,
+'likes' => 0,
+'downloads' => 0,
+'category_id' => 4,
+'time_download' => '2017-03-24 11:17:37',
+'created_at' => '2017-03-24 18:17:37',
+'updated_at' => '2017-03-24 18:17:37',
+),
           ));
     }
 }

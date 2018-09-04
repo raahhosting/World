@@ -25,6 +25,10 @@ Route::get('/checkout', function () {
     return view('software.checkout');
   });
 
+  Route::get('/search','DownloadsController@search')->name('search');
+
+
+
 
 
 

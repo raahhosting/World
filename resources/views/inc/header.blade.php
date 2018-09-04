@@ -35,7 +35,7 @@
         <!-- SEARCH BAR -->
         <div class="col-md-6">
           <div class="header-search">
-            <form>
+            <form action="{{route('search')}}" method="get" class="search-form">
               <select class="input-select">
                 <option value="0">All Categories</option>
                 <option value="1">File Sharing</option>
@@ -43,7 +43,7 @@
                   <option value="1">Drivers</option>
                     <option value="1">Security</option>
               </select>
-              <input class="input" placeholder="Search here">
+              <input class="input" name="query" value="{{request()->input('query')}}" id="query" placeholder="Search here">
               <button class="search-btn">Search</button>
             </form>
           </div>

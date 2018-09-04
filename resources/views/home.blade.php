@@ -55,6 +55,23 @@
       <!-- /section title -->
 </div>
 
+
+<div class="program-entry">
+<div class="program-entry-header">
+<a href="https://filehippo.com/download_avast_antivirus/" class="internal-link">
+<img src="https://images.filehippo.net/img/ex/8996__avast_icon_13_2_2017_converted.png" /><h2> Avast Free Antivirus 18.6.2349</h2></a></div>
+<div class="program-entry-download-button category-page-box-fix">
+<a href="https://filehippo.com/download_avast_antivirus/" class="green program-entry-download-link button-link">
+<span class="sprite download-icon-white"></span>Download</a>
+</div>
+<div class="program-entry-details">Avast Software - 7.09MB (Non-Commercial Freeware)</div>
+<div class="program-entry-description">
+Avast Free Antivirus is an efficient and comprehensive antivirus program. It is one of the most popular antivirus programs available, thanks to the re...</div>
+<div class="child-programs">
+
+</div>
+
+
       @foreach($downloads as $download)
       <!-- product widget -->
       <div class="product-widget">
