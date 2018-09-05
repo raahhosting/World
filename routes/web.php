@@ -19,6 +19,9 @@ Route::get('/','HomeController@index');
 
 Route::get('/software/{download}','DownloadsController@show')->name('software.show');
 
+Route::get('/alldownloads','DownloadsController@index')->name('all.index');
+
+
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::post('/cart','CartController@store')->name('cart.store');
 Route::delete('/cart/{id}','CartController@destroy')->name('cart.destroy');
@@ -26,9 +29,7 @@ Route::get('empty', function(){
   Cart::destroy();
 });
 
-Route::get('/checkout', function () {
-    return view('software.checkout');
-  });
+Route::get('/checkout','CheckoutController@index')->name('checkout.index');
 
   Route::get('/search','DownloadsController@search')->name('search');
 

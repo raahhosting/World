@@ -107,7 +107,7 @@ Avast Software</a>
          <input type="hidden" name="id" value="{{$download->id}}" />
           <input type="hidden" name="title" value="{{$download->title}}" />
            <input type="hidden" name="price" value="{{$download->price}}" />
-           <input type="hidden" name="price" value="{{$download->image}}" />
+           <input type="hidden" name="image" value="{{$download->image}}" />
           <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
         </form>
       </div>

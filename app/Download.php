@@ -27,7 +27,7 @@ protected $searchable = [
         'downloads.title' => 10,
         'downloads.description' => 8,
         'downloads.slug' => 2,
-        
+
     ],
     // 'joins' => [
     //     'posts' => ['users.id','posts.user_id'],
@@ -47,6 +47,10 @@ protected $searchable = [
     	public function categories(){
     	    return $this->belongsTo(Category::class);
     	}
+
+      public function user(){
+          return $this->belongsTo(User::class);
+      }
 
 
     public function link(){

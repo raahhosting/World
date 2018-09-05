@@ -32,7 +32,7 @@ class DownloadsController extends Controller
      */
     public function index()
     {
-        //
+        return view('software.all');
     }
 
     /**

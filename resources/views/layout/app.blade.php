@@ -10,6 +10,7 @@
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+			<script src="https://js.stripe.com/v3/"></script>
 
 		<!-- Bootstrap -->
 		<link type="text/css" rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
@@ -21,13 +22,14 @@
 		<!-- nouislider -->
 		<link type="text/css" rel="stylesheet" href="{{asset('css/nouislider.min.css')}}"/>
 
+
 		<!-- Font Awesome Icon -->
 		<link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}"/>
 
-
+@yield('extra-css')
 
     </head>
 	<body>
@@ -43,6 +45,8 @@
 		<script src="{{asset('js/nouislider.min.js')}}"></script>
 		<script src="{{asset('js/jquery.zoom.min.js')}}"></script>
 		<script src="{{asset('js/main.js')}}"></script>
+			<script src="https://js.stripe.com/v3/"></script>
+		@yield('extra-js')
 
 	</body>
 </html>

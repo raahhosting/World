@@ -1,3 +1,9 @@
+@extends('layout.app')
+@include('inc.header')
+@include('inc.nav')
+@section('content')
+
+
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
@@ -498,3 +504,5 @@
   <!-- /container -->
 </div>
 <!-- /SECTION -->
+
+@endsection

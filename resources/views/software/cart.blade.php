@@ -1,5 +1,7 @@
 @extends('layout.app')
 @include('inc.header')
+@include('inc.nav')
+
 @section('content')
 
 
@@ -43,6 +45,7 @@
                         <td class="col-sm-1 col-md-1 text-center"><strong>${{$item->model->price}}</strong></td>
                         <td class="col-sm-1 col-md-1">
 
+
                           <!-- <button type="button" class="btn btn-danger">
                               <span class="glyphicon glyphicon-remove"></span><a href="">
                                Remove</a>
@@ -83,18 +86,22 @@
                         <td>
                           <div class="cart-btns">
 
-                            <a href="#">Continue Shopping <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="{{route('all.index')}}">Continue Shopping <i class="fa fa-arrow-circle-right"></i></a>
                           </div></td>
                         <td>
                           <div class="cart-btns">
 
-                            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="{{route('checkout.index')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
                           </div></td>
                     </tr>
                 </tbody>
             </table>
             @else
             <h2>No Softwares in the Cart.</h2>
+            <div class="cart-btns">
+
+              <a href="{{route('all.index')}}">Continue Shopping <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
           @endif
         </div>
     </div>
