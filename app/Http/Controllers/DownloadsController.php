@@ -32,7 +32,8 @@ class DownloadsController extends Controller
      */
     public function index()
     {
-        return view('software.all');
+      $downloads = Download::inRandomOrder()->take(8)->get();
+        return view('software.all')->with('downloads',$downloads);
     }
 
     /**

@@ -60,7 +60,7 @@
 
       @foreach($downloads as $download)
       <!-- product widget -->
-      <div class="col-md-6 pull-right">
+    <div class="col-md-4 col-xs-4">
       <div class="product-widget">
         <div class="product-img">
 
