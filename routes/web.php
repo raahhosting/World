@@ -15,7 +15,7 @@
 //     return view('home');
 // });
 
-Route::get('/','HomeController@index');
+Route::get('/','HomeController@index')->name('download.index');
 
 Route::get('/software/{download}','DownloadsController@show')->name('software.show');
 

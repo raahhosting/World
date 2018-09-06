@@ -45,7 +45,7 @@ protected $searchable = [
             'description'  => 'required|min:6');
 
     	public function categories(){
-    	    return $this->belongsTo(Category::class);
+    	    return $this->hasMany(Category::class);
     	}
 
       public function user(){

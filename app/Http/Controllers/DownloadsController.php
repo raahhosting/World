@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Download;
+use App\Category;
+
 use Cart;
 
 
@@ -32,8 +34,28 @@ class DownloadsController extends Controller
      */
     public function index()
     {
-      $downloads = Download::inRandomOrder()->take(8)->get();
-        return view('software.all')->with('downloads',$downloads);
+
+
+
+      if(request()->categories){
+        $downloads = Download::with('category')->whereHas('category',function($query){
+          $query->where('slug',request()->categories);
+
+        })->get();
+          $categories = Category::all();
+          $categoryName=$categories->where('slug',$request()->categories)->first()->name;
+      }else{
+        $downloads = Download::inRandomOrder()->take(8)->get();
+        $categories = Category::all();
+        $categoryName = 'Featured';
+      }
+
+
+        return view('software.all')->with([
+          'downloads'=>$downloads,
+            'categories'=>$categories,
+
+          ]);
     }
 
     /**

@@ -17,9 +17,9 @@ class CreateCategoryDownloadTable extends Migration
             $table->increments('id');
 
             $table->integer('download_id')->unsigned()->nullable();
-            $table->foreign('download_id')->reference('id')->on('downloads')->onDelete('cascade');
+            $table->foreign('download_id')->references('id')->on('downloads')->onDelete('cascade');
             $table->integer('category_id')->unsigned()->nullable();
-            $table->foreign('category_id')->reference('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

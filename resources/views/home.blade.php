@@ -1,5 +1,5 @@
 @extends('layout.app')
-@include('inc.header')
+@include('inc.header',['categories' => $categories])
 @include('inc.nav')
 @section('content')
 
@@ -55,7 +55,7 @@
       <!-- /section title -->
 </div>
 
-@include('inc.aside')
+@include('inc.aside',['categories' => $categories])
 
 
       @foreach($downloads as $download)

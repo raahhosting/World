@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Download;
+use App\Category;
 
 class HomeController extends Controller
 {
@@ -18,8 +19,13 @@ class HomeController extends Controller
         $popular  = Download::orderBy('downloads', 'DESC')->take(5)->get();
 		    $mostlike = Download::orderBy('likes', 'DESC')->take(5)->get();
 		    // $alsolike = Download::orderByRaw("RAND()")->where('slug', '!=', $slug)->take(3)->get();
+        $categories = Category::all();
 
-        return view('home')->with('downloads',$downloads);
+        return view('home')->with(
+          [
+            'downloads'=>$downloads,
+            'categories'=>$categories,
+            ]);
     }
 
     /**
