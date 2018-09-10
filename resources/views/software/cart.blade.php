@@ -31,7 +31,8 @@
                     <tr>
                         <td class="col-sm-3 col-md-3">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="{{route('software.show',$item->model->slug)}}"> <img class="media-object" src="{{asset('./img/'.$item->model->image)}}" style="width: 72px; height: 72px;"> </a>
+                      
+                            <a class="thumbnail pull-left" href="{{route('software.show',$item->model->slug)}}"> <img class="media-object" src="{{asset($item->model->image)}}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="{{route('software.show',$item->model->slug)}}">{{$item->model->title}}</a></h4>
                                 <h5 class="media-heading"> by <a href="#">Brand name</a></h5>

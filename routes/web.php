@@ -29,6 +29,11 @@ Route::get('empty', function(){
   Cart::destroy();
 });
 
+Route::post('/coupon','CouponsController@store')->name('coupon.store');
+Route::delete('/coupon','CouponsController@destroy')->name('coupon.destroy');
+
+Route::get('/profile','ProfileController@index')->name('user.index');
+
 Route::get('/checkout','CheckoutController@index')->name('checkout.index');
 
   Route::get('/search','DownloadsController@search')->name('search');
@@ -42,3 +47,7 @@ Route::get('/checkout','CheckoutController@index')->name('checkout.index');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

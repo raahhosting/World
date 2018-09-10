@@ -34,9 +34,9 @@
 
   <div class="product-img">
 
-    <img src="{{ asset('img/'. $download->image) }}" alt="">
+    <img src="{{ asset($download->image) }}" alt="">
 
-  </div><h1 class="title-text" title="Avast Antivirus 18.6.2349">
+  </div><h1 class="title-text" title="{{$download->title}}">
     <span itemprop="name">{{$download->title}}</span>
     <span style="font-weight: normal">18.6.2349</span>
 </h1>

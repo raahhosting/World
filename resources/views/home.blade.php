@@ -11,15 +11,15 @@
                 <div>
                     <div class="splash-text">
                         <div class="splash-content">
-                            <h1>The Latest Versions<br />of the Best Software</h1>
+                            <h1>The Latest Versions<br />of the Best Softwares</h1>
                             <ul>
-                                <li>Hand picked software titles - only the best!</li>
+                                <li>Upload your Favorite Softwares Here  for Sale</li>
                                 <li>Tested for malware, adware and viruses</li>
 
                             </ul>
                         </div>
 
-                        <div class="btn btn-danger"><a href="#"><span  style="color:white;">BROWSE SOFTWARE</span></a></div>
+                        <div class="btn btn-danger"><a href="/alldownloads"><span  style="color:white;">BROWSE SOFTWARE</span></a></div>
                         <div class="btn btn-primary"><a href="#"><span style="color:white;">Latest updates</span></a></div>
 
                     </div>
@@ -57,11 +57,12 @@
 
 @include('inc.aside',['categories' => $categories])
 
+<div class="row">
+  <!-- product -->
+  @foreach($downloads as $download)
+  <div class="col-md-4 col-xs-6">
+    <div class="product-widget">
 
-      @foreach($downloads as $download)
-      <!-- product widget -->
-    <div class="col-md-4 col-xs-4">
-      <div class="product-widget">
         <div class="product-img">
 
           <img src="{{$download->image}}" alt="">
@@ -73,13 +74,13 @@
           <h4 class="product-price">${{$download->price}} <del class="product-old-price">$990.00</del></h4>
         </div>
       </div>
-    </div>
-      <!-- /product widget -->
-      <!-- Products tab & slick -->
-
-                @endforeach
 
 
+
+  </div>
+  <!-- /product -->
+    @endforeach
+  </div>
 
 
 

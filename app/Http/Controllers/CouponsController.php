@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Coupon;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
-class CheckoutController extends Controller
+class CouponsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +15,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-      $tax = config('cart.tax')/100;
-      $discount = session()->get('coupon')['discount'] ?? 0;
-      $newTotal = (Cart::total() - $discount);
-        return view('software.checkout')->with([
-          'discount'=>$discount,
-          'newTotal'=>$newTotal,
-
-        ]);
+        //
     }
 
     /**
@@ -42,7 +36,18 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $coupon = Coupon::where('code',$request->coupon_code)->first();
+
+        if(!$coupon){
+          return redirect()->route('checkout.index')->withErrors('Invalid coupon code. Please try again.');
+        }
+      session()->put('coupon',[
+
+        'name'=>$coupon->code,
+        'discount'=>$coupon->discount(Cart::total()),
+      ]);
+
+      return redirect()->route('checkout.index')->with('success_message','Coupon has been applied');
     }
 
     /**
@@ -85,8 +90,9 @@ class CheckoutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        session()->forget('coupon');
+        return redirect()->route('checkout.index')->with('success_message','Coupon has been removed');
     }
 }

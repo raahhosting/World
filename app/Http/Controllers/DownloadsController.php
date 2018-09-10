@@ -37,23 +37,26 @@ class DownloadsController extends Controller
 
 
 
-      if(request()->categories){
-        $downloads = Download::with('category')->whereHas('category',function($query){
-          $query->where('slug',request()->categories);
+      if(request()->category){
+        $downloads = Category::with('downloads')->where('slug',request()->category)->get();
 
-        })->get();
           $categories = Category::all();
-          $categoryName=$categories->where('slug',$request()->categories)->first()->name;
+
+          $categoryName=$categories->where('slug',request()->category)->first()->name;
+
       }else{
         $downloads = Download::inRandomOrder()->take(8)->get();
         $categories = Category::all();
         $categoryName = 'Featured';
       }
-
+//dd($downloads);
+      // $newSoftwares = Download::inRandomOrder()->take(3)->get();
 
         return view('software.all')->with([
           'downloads'=>$downloads,
             'categories'=>$categories,
+          // 'newSoftwares'=>$newSoftwares,
+
 
           ]);
     }
@@ -65,7 +68,7 @@ class DownloadsController extends Controller
      */
     public function create()
     {
-        //
+      return view('users.upload');
     }
 
     /**
@@ -76,7 +79,17 @@ class DownloadsController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->validate($request,[
+        //   'file'=>'require|file|max:20000'
+        // ])
         //
+        // $upload = $request->file('file');
+        // $image = $request->file('image');
+        // $path = $upload->store('public/storage');
+        // $file = Download::create([
+        //   'title'=>$upload->getClientOriginalName();
+        //   'file'=>$path;
+        // ])
     }
 
     /**

@@ -25,7 +25,7 @@ class CreateDownloadsTable extends Migration
             $table->decimal('price', 8, 2);
 			      $table->integer('likes')->default(0);
 			      $table->integer('downloads')->default(0);
-			      $table->integer('category_id');
+			      
 			      $table->timestamp('time_download')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });

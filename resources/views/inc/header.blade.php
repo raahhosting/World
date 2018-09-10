@@ -3,14 +3,35 @@
   <!-- TOP HEADER -->
   <div id="top-header">
     <div class="container">
-      <ul class="header-links pull-left">
-        <li><a href="#"><i class="fa fa-phone"></i>0244264363</a></li>
-        <li><a href="#"><i class="fa fa-envelope-o"></i>https://twitter.com/raahhosting</a></li>
-        <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Osu-Accra</a></li>
-      </ul>
+
       <ul class="header-links pull-right">
-        <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-        <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+
+            <!-- Authentication Links -->
+            @guest
+                <li><a href="{{ route('login') }}">Sign In</a></li>
+                <li><a href="{{ route('register') }}">Register</a></li>
+            @else
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                        {{ Auth::user()->name }} <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                         document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endguest
+
       </ul>
     </div>
   </div>
@@ -77,7 +98,7 @@
                     @foreach(Cart::content() as $item)
                   <div class="product-widget">
                     <div class="product-img">
-                      <img src="{{asset('./img/'.$item->model->image.'png')}}" alt="">
+                      <img src="{{asset($item->model->image)}}" alt="">
                     </div>
                     <div class="product-body">
                       <h3 class="product-name"><a href="{{route('software.show',$item->model->slug)}}">{{$item->model->title}}</a></h3>
@@ -104,7 +125,9 @@
             <!-- /Cart -->
 
 
+
             @endif
+
 
             <!-- Menu Toogle -->
             <div class="menu-toggle">

@@ -8,6 +8,11 @@ use Nicolaslopezj\Searchable\SearchableTrait;
 class Download extends Model
 {
 
+protected $fillable = [
+
+  'title','image','description','file','price'
+];
+
 
       use SearchableTrait;
       /**
@@ -44,9 +49,12 @@ protected $searchable = [
             'title'   => 'required|min:3',
             'description'  => 'required|min:6');
 
-    	public function categories(){
-    	    return $this->hasMany(Category::class);
+    	public function category(){
+    	    return $this->belongsTo(Category::class);
     	}
+      public function categories(){
+        return $this->belongsToMany(Category::class);
+      }
 
       public function user(){
           return $this->belongsTo(User::class);

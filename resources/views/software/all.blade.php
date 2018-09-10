@@ -34,60 +34,6 @@
 
 
         <!-- aside Widget -->
-        <div class="aside">
-          <h3 class="aside-title">Brand</h3>
-          <div class="checkbox-filter">
-            <div class="input-checkbox">
-              <input type="checkbox" id="brand-1">
-              <label for="brand-1">
-                <span></span>
-                SAMSUNG
-                <small>(578)</small>
-              </label>
-            </div>
-            <div class="input-checkbox">
-              <input type="checkbox" id="brand-2">
-              <label for="brand-2">
-                <span></span>
-                LG
-                <small>(125)</small>
-              </label>
-            </div>
-            <div class="input-checkbox">
-              <input type="checkbox" id="brand-3">
-              <label for="brand-3">
-                <span></span>
-                SONY
-                <small>(755)</small>
-              </label>
-            </div>
-            <div class="input-checkbox">
-              <input type="checkbox" id="brand-4">
-              <label for="brand-4">
-                <span></span>
-                SAMSUNG
-                <small>(578)</small>
-              </label>
-            </div>
-            <div class="input-checkbox">
-              <input type="checkbox" id="brand-5">
-              <label for="brand-5">
-                <span></span>
-                LG
-                <small>(125)</small>
-              </label>
-            </div>
-            <div class="input-checkbox">
-              <input type="checkbox" id="brand-6">
-              <label for="brand-6">
-                <span></span>
-                SONY
-                <small>(755)</small>
-              </label>
-            </div>
-          </div>
-        </div>
-        <!-- /aside Widget -->
 
         <!-- aside Widget -->
         <div class="aside">
@@ -160,46 +106,38 @@
         <!-- store products -->
         <div class="row">
           <!-- product -->
+
           @foreach($downloads as $download)
-          <div class="col-md-4 col-xs-6">
-            <div class="product">
+           @foreach($download->downloads as $d)
+            <div class="col-md-4 col-xs-6">
+              <div class="product-widget">
 
-                <div class="product-img">
+                  <div class="product-img">
 
-                  <img src="{{$download->image}}" alt="">
+                    <img src="{{$d->image}}" alt="">
 
+                  </div>
+                  <div class="product-body">
+                    <p class="product-category">Category</p>
+                    <h3 class="product-name"><a href="{{route('software.show',$d->slug)}}">{{$d->title}}</a></h3>
+                    <h4 class="product-price">${{$d->price}} <del class="product-old-price">$990.00</del></h4>
+                  </div>
                 </div>
-                <div class="product-body">
-                  <p class="product-category">Category</p>
-                  <h3 class="product-name"><a href="{{route('software.show',$download->slug)}}">{{$download->title}}</a></h3>
-                  <h4 class="product-price">${{$download->price}} <del class="product-old-price">$990.00</del></h4>
-                </div>
-              </div>
 
 
 
-          </div>
+            </div>
+           @endforeach
           <!-- /product -->
+            @endforeach
 
-          @endforeach
+
         <!-- /store products -->
 
-        <!-- store bottom filter -->
-        <div class="store-filter clearfix">
-          <span class="store-qty">Showing 20-100 products</span>
-          <ul class="store-pagination">
-            <li class="active">1</li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-          </ul>
-        </div>
-        <!-- /store bottom filter -->
+
       </div>
       <!-- /STORE -->
-    </div>
-    <!-- /row -->
+
   </div>
   <!-- /container -->
 </div>

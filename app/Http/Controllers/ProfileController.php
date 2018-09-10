@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
-class CheckoutController extends Controller
+class ProfileController extends Controller
 {
+
+
+ public function __construct()
+ {
+     $this->middleware('auth');
+ }
     /**
      * Display a listing of the resource.
      *
@@ -14,14 +19,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-      $tax = config('cart.tax')/100;
-      $discount = session()->get('coupon')['discount'] ?? 0;
-      $newTotal = (Cart::total() - $discount);
-        return view('software.checkout')->with([
-          'discount'=>$discount,
-          'newTotal'=>$newTotal,
-
-        ]);
+        return view('users.profile');
     }
 
     /**

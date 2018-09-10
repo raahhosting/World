@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('extra-css')
 	<link type="text/css" rel="stylesheet" href="{{asset('css/checkout.css')}}"/>
-<script src="https://js.stripe.com/v3/"></script>
+
 
 @endsection
 
@@ -37,8 +37,10 @@
     <div class="row">
 
       <div class="col-md-7">
+					<form action="" id="payment-form">
         <!-- Billing Details -->
         <div class="billing-details">
+
           <div class="section-title">
             <h3 class="title">Billing address</h3>
           </div>
@@ -66,27 +68,16 @@
           <div class="form-group">
             <input class="input" type="tel" name="tel" placeholder="Telephone">
           </div>
-          <div class="form-group">
-            <div class="input-checkbox">
-              <input type="checkbox" id="create-account">
-              <label for="create-account">
-                <span></span>
-                Create Account?
-              </label>
-              <div class="caption">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                <input class="input" type="password" name="password" placeholder="Enter Your Password">
-              </div>
-            </div>
-          </div>
+
         </div>
         <!-- /Billing Details -->
 
         <!-- Shiping Details -->
         <div class="shiping-details">
           <div class="section-title">
-            <h3 class="title">Shiping address</h3>
+            <h3 class="title">Payment Details</h3>
           </div>
+
           <div class="input-checkbox">
             <input type="checkbox" id="shiping-address">
             <label for="shiping-address">
@@ -95,39 +86,32 @@
             </label>
             <div class="caption">
               <div class="form-group">
-                <input class="input" type="text" name="first-name" placeholder="First Name">
+                <input class="input" type="text" name="name_on_card" placeholder="Name on Card">
               </div>
-              <div class="form-group">
-                <input class="input" type="text" name="last-name" placeholder="Last Name">
-              </div>
-              <div class="form-group">
-                <input class="input" type="email" name="email" placeholder="Email">
-              </div>
+
               <div class="form-group">
                 <input class="input" type="text" name="address" placeholder="Address">
               </div>
-              <div class="form-group">
-                <input class="input" type="text" name="city" placeholder="City">
-              </div>
-              <div class="form-group">
-                <input class="input" type="text" name="country" placeholder="Country">
-              </div>
-              <div class="form-group">
-                <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
-              </div>
-              <div class="form-group">
-                <input class="input" type="tel" name="tel" placeholder="Telephone">
-              </div>
+
+							<div class="form-row">
+        <label for="card-element">
+      Credit or debit card
+      </label>
+    <div id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
+    </div>
+
+    <!-- Used to display form errors. -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+	<br>
+
+  <button class="primary-btn order-submit">Submit Payment</button>
             </div>
           </div>
         </div>
         <!-- /Shiping Details -->
 
-        <!-- Order notes -->
-        <div class="order-notes">
-          <textarea class="input" placeholder="Order Notes"></textarea>
-        </div>
-        <!-- /Order notes -->
       </div>
 
       <!-- Order Details -->
@@ -151,62 +135,38 @@
             @endforeach
           </div>
           <div class="order-col">
-            <div>Shiping</div>
-            <div><strong>FREE</strong></div>
-          </div>
-          <div class="order-col">
-            <div><strong>TOTAL</strong></div>
-            <div><strong class="order-total">${{Cart::total()}}</strong></div>
-          </div>
-        </div>
-        <div class="payment-method">
-          <div class="input-radio">
-            <input type="radio" name="payment" id="payment-1">
-            <label for="payment-1">
-              <span></span>
-              Direct Bank Transfer
-            </label>
-            <div class="caption">
-              <form action="/charge" method="post" id="payment-form">
-    <div class="form-row">
-      <div class="form-group">
-      <label for="card-element">
-        Credit or debit card
-      </label>
-      <div id="card-element">
-        
-      </div>
+						@if(session()->has('coupon'))
+            <div>Discount({{session()->get('coupon')['name']}})
+           <form action="{{route('coupon.destroy')}}" method="post" style="display:inline;">
+{{csrf_field()}}
+{{method_field('delete')}}
+<button type="submit" style"font-size:14px;">Remove</button>
 
-      <!-- Used to display form errors. -->
-      <div id="card-errors" role="alert"></div>
-    </div>
-  </div>
+					 </form>
 
-    <button>Submit Payment</button>
-  </form>
-            </div>
+						</div>
+            <div><strong>{{$discount}}</strong></div>
+						@endif
           </div>
-          <div class="input-radio">
-            <input type="radio" name="payment" id="payment-2">
-            <label for="payment-2">
-              <span></span>
-              Cheque Payment
-            </label>
-            <div class="caption">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-          </div>
-          <div class="input-radio">
-            <input type="radio" name="payment" id="payment-3">
-            <label for="payment-3">
-              <span></span>
-              Paypal System
-            </label>
-            <div class="caption">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            </div>
-          </div>
+					<div class="order-col">
+						<div><strong>TOTAL</strong></div>
+						<div><strong class="order-total">${{$newTotal}}</strong></div>
+
+					</div>
+
         </div>
+					@if(!session()->has('coupon'))
+				<a href="#" class="have-code">Have a code?</a>
+				<div>
+      <form action ="{{route('coupon.store')}}" method="post">
+				{{csrf_field()}}
+         <input type="text" name="coupon_code" id="coupon_code">
+   <button type="submit" class="button button-plain">Apply</button>
+			</form>
+
+				</div>
+				@endif
+
         <div class="input-checkbox">
           <input type="checkbox" id="terms">
           <label for="terms">
@@ -217,7 +177,7 @@
         <a href="#" class="primary-btn order-submit">Place order</a>
       </div>
       <!-- /Order Details -->
-
+</div>
     </div>
     <!-- /row -->
   </div>
@@ -239,7 +199,7 @@ var style = {
   base: {
     color: '#32325d',
     lineHeight: '18px',
-    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontFamily: '"Roboto","Helvetica Neue", Helvetica, sans-serif',
     fontSmoothing: 'antialiased',
     fontSize: '16px',
     '::placeholder': {
@@ -253,7 +213,10 @@ var style = {
 };
 
 // Create an instance of the card Element.
-var card = elements.create('card', {style: style});
+var card = elements.create('card', {
+	style: style,
+	hidePostalCode:true
+});
 
 // Add an instance of the card Element into the `card-element` <div>.
 card.mount('#card-element');
@@ -273,6 +236,15 @@ var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
+	var options = {
+		name: document.getElementById('name_on_card').value,
+
+			address_line1: document.getElementById('address').value,
+				name: document.getElementById('city').value,
+					name: document.getElementById('').value,
+						name: document.getElementById('').value,
+	}
+
   stripe.createToken(card).then(function(result) {
     if (result.error) {
       // Inform the user if there was an error.
@@ -284,6 +256,19 @@ form.addEventListener('submit', function(event) {
     }
   });
 });
+
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  // form.submit();
+}
 
 })();
 </script>

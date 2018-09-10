@@ -9,7 +9,6 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-
         "fideloper/proxy": "~3.3",
         "gloudemans/shoppingcart": "^2.5",
         "laravel/framework": "5.5.*",
@@ -17,9 +16,7 @@
         "tcg/voyager": "^1.1",
         "cartalyst/stripe-laravel": "2.0.*",
         "nicolaslopezj/searchable": "1.*",
-         "nesbot/carbon": "^1.33"
-
-
+        "nesbot/carbon": "^1.33"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
