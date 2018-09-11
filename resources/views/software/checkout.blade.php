@@ -33,40 +33,49 @@
 <div class="section">
   <!-- container -->
   <div class="container">
+		@if(session()->has('success_message'))
+		<div class="spacer"></div>
+		<div class="alert alert-success">
+			{{session()->get('success_message')}}
+
+		</div>
+		@endif
     <!-- row -->
     <div class="row">
 
       <div class="col-md-7">
-					<form action="" id="payment-form">
-        <!-- Billing Details -->
+
         <div class="billing-details">
 
           <div class="section-title">
             <h3 class="title">Billing address</h3>
           </div>
+					<form action="{{route('checkout.store')}}" method="post" id="payment-form">
+				<!-- Billing Details -->
+				{{csrf_field()}}
           <div class="form-group">
-            <input class="input" type="text" name="first-name" placeholder="First Name">
+            <input class="input" type="text" id="first-name" name="first-name" placeholder="First Name" value="{{old('first-name')}}" required>
           </div>
           <div class="form-group">
-            <input class="input" type="text" name="last-name" placeholder="Last Name">
+            <input class="input" type="text" id="last-name" name="last-name" placeholder="Last Name" value="{{old('last-name')}}" required>
           </div>
           <div class="form-group">
-            <input class="input" type="email" name="email" placeholder="Email">
+            <input class="input" type="email" id="email" name="email" placeholder="Email" value="{{old('email')}}" required>
           </div>
           <div class="form-group">
-            <input class="input" type="text" name="address" placeholder="Address">
+            <input class="input" type="text" id="address"  name="address" placeholder="Address" value="{{old('address')}}" required>
           </div>
           <div class="form-group">
-            <input class="input" type="text" name="city" placeholder="City">
+            <input class="input" type="text" id="city" name="city" placeholder="City" value="{{old('city')}}" required>
           </div>
           <div class="form-group">
-            <input class="input" type="text" name="country" placeholder="Country">
+            <input class="input" type="text" id="country" name="country" placeholder="Country" value="{{old('country')}}" required>
           </div>
           <div class="form-group">
-            <input class="input" type="text" name="zip-code" placeholder="ZIP Code">
+            <input class="input" type="text" id="zip-code" name="zip-code" placeholder="ZIP Code" value="{{old('zip-code')}}">
           </div>
           <div class="form-group">
-            <input class="input" type="tel" name="tel" placeholder="Telephone">
+            <input class="input" type="tel" id="tel" name="tel" placeholder="Telephone" value="{{old('tel')}}">
           </div>
 
         </div>
@@ -82,15 +91,15 @@
             <input type="checkbox" id="shiping-address">
             <label for="shiping-address">
               <span></span>
-              Ship to a diffrent address?
+            Continue to Payment?
             </label>
             <div class="caption">
               <div class="form-group">
-                <input class="input" type="text" name="name_on_card" placeholder="Name on Card">
+                <input class="input" type="text" id="name_on_card" name="name_on_card" placeholder="Name on Card" value="">
               </div>
 
               <div class="form-group">
-                <input class="input" type="text" name="address" placeholder="Address">
+                <input class="input" type="text" id="address" name="address" placeholder="Address" value="">
               </div>
 
 							<div class="form-row">
@@ -106,7 +115,7 @@
   </div>
 	<br>
 
-  <button class="primary-btn order-submit">Submit Payment</button>
+  <button class="primary-btn order-submit" type="submit" id="complete-order">Submit Payment</button>
             </div>
           </div>
         </div>
@@ -138,8 +147,8 @@
 						@if(session()->has('coupon'))
             <div>Discount({{session()->get('coupon')['name']}})
            <form action="{{route('coupon.destroy')}}" method="post" style="display:inline;">
-{{csrf_field()}}
-{{method_field('delete')}}
+             {{csrf_field()}}
+        {{method_field('delete')}}
 <button type="submit" style"font-size:14px;">Remove</button>
 
 					 </form>
@@ -188,7 +197,7 @@
 <script>
 (function(){
   // Create a Stripe client.
-var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+var stripe = Stripe('pk_test_vxCCeFxmMQkepzCUjCVh7igR');
 
 // Create an instance of Elements.
 var elements = stripe.elements();
@@ -236,20 +245,26 @@ var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
+	//Disable the submit button to prevent repeated clicks
+	document.getElementById('complete-order').disabled = true;
+
 	var options = {
 		name: document.getElementById('name_on_card').value,
 
-			address_line1: document.getElementById('address').value,
-				name: document.getElementById('city').value,
-					name: document.getElementById('').value,
-						name: document.getElementById('').value,
+		address_line1: document.getElementById('address').value,
+		address_city: document.getElementById('city').value,
+		 address_state: document.getElementById('country').value,
+		address_zip: document.getElementById('zip-code').value,
 	}
 
-  stripe.createToken(card).then(function(result) {
+  stripe.createToken(card,options).then(function(result) {
     if (result.error) {
       // Inform the user if there was an error.
       var errorElement = document.getElementById('card-errors');
       errorElement.textContent = result.error.message;
+
+			//enable submit button Here
+				document.getElementById('complete-order').disabled = false;
     } else {
       // Send the token to your server.
       stripeTokenHandler(result.token);
@@ -267,7 +282,7 @@ function stripeTokenHandler(token) {
   form.appendChild(hiddenInput);
 
   // Submit the form
-  // form.submit();
+  form.submit();
 }
 
 })();

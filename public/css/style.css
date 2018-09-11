@@ -102,6 +102,11 @@ ul, ol {
   text-align: center;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
+
+  &:disabled{
+    background:lighten($primary,10%);
+    cursor: not-allowed;
+  }
 }
 
 .primary-btn:hover, .primary-btn:focus {

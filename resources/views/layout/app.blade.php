@@ -45,7 +45,7 @@
 		<script src="{{asset('js/nouislider.min.js')}}"></script>
 		<script src="{{asset('js/jquery.zoom.min.js')}}"></script>
 		<script src="{{asset('js/main.js')}}"></script>
-			<script src="https://js.stripe.com/v3/"></script>
+		
 		@yield('extra-js')
 
 	</body>

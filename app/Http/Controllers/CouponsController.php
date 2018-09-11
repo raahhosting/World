@@ -46,7 +46,7 @@ class CouponsController extends Controller
         'name'=>$coupon->code,
         'discount'=>$coupon->discount(Cart::total()),
       ]);
-
+    Session::flash ( 'success-message', 'Coupon has been applied' );
       return redirect()->route('checkout.index')->with('success_message','Coupon has been applied');
     }
 

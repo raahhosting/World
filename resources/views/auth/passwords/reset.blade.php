@@ -1,4 +1,5 @@
-@extends('././layout.app')
+@extends('layout.app')
+@include('inc.header')
 
 @section('content')
 <div class="container">
