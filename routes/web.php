@@ -11,8 +11,8 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('home');
+// Route::get('/checkout', function () {
+//     return view('software.checkout2');
 // });
 
 Route::get('/','HomeController@index')->name('download.index');

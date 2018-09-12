@@ -21,7 +21,7 @@ class CheckoutController extends Controller
       // $tax = config('cart.tax')/100;
       // $discount = session()->get('coupon')['discount'] ?? 0;
       // $newTotal = (Cart::total() - $discount);
-        return view('software.checkout')->with([
+        return view('software.checkout2')->with([
           'discount'=>$this->getNumbers()->get('discount'),
           'newTotal'=>$this->getNumbers()->get('newTotal'),
 
