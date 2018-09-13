@@ -15,7 +15,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','username','company',
     ];
 
     /**
@@ -29,5 +29,9 @@ class User extends \TCG\Voyager\Models\User
 
     public function downloads(){
         return $this->hasMany(Download::class);
+    }
+
+    public function orders(){
+      return $this->hasMany('App\Order');
     }
 }

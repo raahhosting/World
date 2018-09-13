@@ -88,7 +88,7 @@
             <div class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <i class="fa fa-shopping-cart"></i>
-                  @if(Cart::count()>0)
+                  @if(Cart::instance('default')->count()>0)
                 <span>Your Cart</span>
                 <div class="qty">{{Cart::instance('default')->count()}}</div>
               </a>

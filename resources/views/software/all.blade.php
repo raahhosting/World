@@ -107,29 +107,26 @@
         <div class="row">
           <!-- product -->
 
-          @foreach($downloads as $download)
-           @foreach($download->downloads as $d)
+
             <div class="col-md-4 col-xs-6">
               <div class="product-widget">
 
                   <div class="product-img">
 
-                    <img src="{{$d->image}}" alt="">
+                    <img src="#" alt="">
 
                   </div>
                   <div class="product-body">
                     <p class="product-category">Category</p>
-                    <h3 class="product-name"><a href="{{route('software.show',$d->slug)}}">{{$d->title}}</a></h3>
-                    <h4 class="product-price">${{$d->price}} <del class="product-old-price">$990.00</del></h4>
+                    <h3 class="product-name"><a href="#">Adobe Reader</a></h3>
+                    <h4 class="product-price">$45 <del class="product-old-price">$990.00</del></h4>
                   </div>
                 </div>
 
 
 
             </div>
-           @endforeach
-          <!-- /product -->
-            @endforeach
+
 
 
         <!-- /store products -->

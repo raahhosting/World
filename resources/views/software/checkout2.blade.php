@@ -61,14 +61,14 @@
   {{csrf_field()}}
 
   <div class="form-group">
-    <input class="input" type="text" id="first-name" name="first-name" placeholder="First Name" value="{{old('first-name')}}" required>
+    <input class="input" type="text" id="name" name="name" placeholder="Name" value="{{auth()->user()->name}}" readonly>
   </div>
 
   <div class="form-group">
-    <input class="input" type="text" id="last-name" name="last-name" placeholder="Last Name" value="{{old('last-name')}}" required>
+    <input class="input" type="text" id="username" name="username" placeholder="User Name" value="{{auth()->user()->username}}" required>
   </div>
   <div class="form-group">
-    <input class="input" type="email" id="email" name="email" placeholder="Email" value="{{old('email')}}" required>
+    <input class="input" type="email" id="email" name="email" placeholder="Email" value="{{auth()->user()->email}}" readonly>
   </div>
   <div class="form-group">
     <input class="input" type="text" id="address"  name="address" placeholder="Address" value="{{old('address')}}" required>
