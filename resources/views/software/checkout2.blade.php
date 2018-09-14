@@ -43,6 +43,22 @@
 
     </div>
     @endif
+		@if(count($errors)>0)
+
+		<div class="spacer"></div>
+		<div class="alert alert-danger">
+     <ul>
+@foreach($errors->all() as $error)
+
+<li>{!! $error!!}</li>
+
+@endforeach
+
+		 </ul>
+
+		</div>
+
+		@endif
 
     <!-- row -->
 
@@ -219,6 +235,9 @@ Credit or debit card
 
   <!-- end container -->
 </div>
+
+
+@include('inc.footer')
 
 <!-- end Section -->
 @endsection

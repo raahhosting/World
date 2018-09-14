@@ -10,9 +10,9 @@
         <li><a href="#">Hot Deals</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">Reviews</a></li>
-        <li><a href="#">Business App</a></li>
+        <li><a href="/alldownloads">Business App</a></li>
         <li><a href="#">News</a></li>
-        <li><a href="#">Top Apps</a></li>
+        <li><a href="/alldownloads">Top Apps</a></li>
       </ul>
       <!-- /NAV -->
     </div>

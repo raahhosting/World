@@ -40,7 +40,7 @@ class CartController extends Controller
         return $cartItem->id ===$request->id;
       });
       if($duplicates->isNotEmpty()){
-        return redirect()->route('cart.index');
+        return redirect()->route('cart.index')->with('success_message','Item is already in your cart');
       }
       // $price = Cart::total(0);
 
@@ -50,7 +50,7 @@ class CartController extends Controller
         Cart::add($request->id,$request->title,1,$price)
               ->associate('App\Download');
 
-              return redirect()->route('cart.index');
+              return redirect()->route('cart.index')->with('success_message','Item was added to your cart!');
     }
 
 

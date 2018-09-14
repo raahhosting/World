@@ -38,38 +38,24 @@
         <!-- aside Widget -->
         <div class="aside">
           <h3 class="aside-title">Top Softwares</h3>
+            @foreach($topSoft as $download)
           <div class="product-widget">
-            <div class="product-img">
-              <img src="./img/product01.png" alt="">
-            </div>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name"><a href="#">product name goes here</a></h3>
-              <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-            </div>
-          </div>
 
-          <div class="product-widget">
             <div class="product-img">
-              <img src="./img/product02.png" alt="">
+              <img src="{{ asset($download->image) }}" alt="">
             </div>
             <div class="product-body">
               <p class="product-category">Category</p>
-              <h3 class="product-name"><a href="#">product name goes here</a></h3>
-              <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+              <h3 class="product-name"><a href="#">{{$download->title}}</a></h3>
+              <h4 class="product-price">${{$download->price}} <del class="product-old-price">$990.00</del></h4>
             </div>
-          </div>
 
-          <div class="product-widget">
-            <div class="product-img">
-              <img src="./img/product03.png" alt="">
-            </div>
-            <div class="product-body">
-              <p class="product-category">Category</p>
-              <h3 class="product-name"><a href="#">product name goes here</a></h3>
-              <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-            </div>
           </div>
+            @endforeach
+
+
+
+
         </div>
         <!-- /aside Widget -->
       </div>
@@ -106,23 +92,27 @@
         <!-- store products -->
         <div class="row">
           <!-- product -->
+          @foreach($downloads as $download)
+          <div class="col-md-4 col-xs-6">
+            <div class="product-widget">
 
+                <div class="product-img">
 
-            <div class="col-md-4 col-xs-6">
-              <div class="product-widget">
+                  <img src="{{$download->image}}" alt="">
 
-                  <div class="product-img">
-
-                    <img src="#" alt="">
-
-                  </div>
-                  <div class="product-body">
-                    <p class="product-category">Category</p>
-                    <h3 class="product-name"><a href="#">Adobe Reader</a></h3>
-                    <h4 class="product-price">$45 <del class="product-old-price">$990.00</del></h4>
-                  </div>
                 </div>
+                <div class="product-body">
+                  <p class="product-category">Category</p>
+                  <h3 class="product-name"><a href="{{route('software.show',$download->slug)}}">{{$download->title}}</a></h3>
+                  <h4 class="product-price">${{$download->price}} <del class="product-old-price">$990.00</del></h4>
+                </div>
+              </div>
 
+
+
+          </div>
+          <!-- /product -->
+            @endforeach
 
 
             </div>
@@ -139,5 +129,8 @@
   <!-- /container -->
 </div>
 <!-- /SECTION -->
+
+
+@include('inc.footer')
 
 @endsection

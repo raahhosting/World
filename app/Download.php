@@ -48,12 +48,12 @@ protected $searchable = [
     public static $validators = array(
             'title'   => 'required|min:3',
             'description'  => 'required|min:6');
-
-    	public function category(){
-    	    return $this->belongsTo(Category::class);
-    	}
+      //
+    	// public function category(){
+    	//     return $this->belongsTo(Category::class);
+    	// }
       public function categories(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany('App\Category');
       }
 
       public function user(){

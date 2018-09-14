@@ -38,14 +38,16 @@ class DownloadsController extends Controller
 
 
       if(request()->category){
-        $downloads = Category::with('downloads')->where('slug',request()->category)->get();
+        $downloads = Download::with('categories')->whereHas('categories',function($query){
 
-          $categories = Category::all();
-
-          $categoryName=$categories->where('slug',request()->category)->first()->name;
+          $query->where('slug',request()->category);
+        })->get();
+        $categories = Category::all();
+          $topSoft = Download::inRandomOrder()->take(4)->get();
 
       }else{
         $downloads = Download::inRandomOrder()->take(8)->get();
+        $topSoft = Download::inRandomOrder()->take(4)->get();
         $categories = Category::all();
         $categoryName = 'Featured';
       }
@@ -55,6 +57,7 @@ class DownloadsController extends Controller
         return view('software.all')->with([
           'downloads'=>$downloads,
             'categories'=>$categories,
+            'topSoft'=>$topSoft,
           // 'newSoftwares'=>$newSoftwares,
 
 
@@ -101,9 +104,14 @@ class DownloadsController extends Controller
     public function show($slug)
     {
         $download = Download::where('slug',$slug)->firstOrFail();
+          $related = Download::where('slug', '!=',$slug)->inRandomOrder()->take(4)->get();
 
 
-        return view('software.softwares')->with('download',$download);
+        return view('software.softwares')->with([
+'download'=>$download,
+'related'=>$related,
+
+          ]);
     }
 
     /**

@@ -22,7 +22,9 @@ return $this->belongsTo('App\User');
 
     public function downloads(){
 
-return $this->belongsToMany('App\Download')->withPivot('quantity');
+return $this->belongsToMany('App\Download','order_download')->withPivot('quantity');
+
+// return $this->belongsToMany('App\Download','order_download','download_id','order_id')->withPivot('quantity');
 
     }
 }

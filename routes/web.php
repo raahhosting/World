@@ -39,6 +39,12 @@ Route::post('/checkout','CheckoutController@store')->name('checkout.store');
 
   Route::get('/search','DownloadsController@search')->name('search');
 
+  Route::get('/mailable',function(){
+
+    $order = App\Order::find(1);
+    return new App\Mail\OrderPlaced($order);
+  });
+
 
 
 

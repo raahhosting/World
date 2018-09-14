@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderPlaced;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Requests\CheckoutRequest;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -70,32 +72,10 @@ class CheckoutController extends Controller
 
         ]);
 
-        //insert into orders mysql_list_tables
-        $order = Order::create([
-          'user_id'=>auth()->user() ? auth()->user()->id : null,
-          'billing_email'=> $request->email,
-          'billing_name' => $request->name,
-          'billing_address'=> $request->address,
-          'billing_city'  => $request->city,
-          'billing_country' =>$request->country,
-          //'billing_zip' => $request->zip-code,
-          'billing_phone' =>$request->tel,
-          'billing_name_on_card' =>$request->name_on_card,
-          'billing_discount'=>$this->getNumbers()->get('discount'),
-          'billing_discont_code'=>$this->getNumbers()->get('code'),
-          'billing_subtotal'=>$this->getNumbers()->get('newSubTotal'),
-          'billing_tax'=>$this->getNumbers()->get('newTax'),
-          'billing_total' =>$this->getNumbers()->get('newTotal'),
-          'error'=>null,
-        ]);
+        $order= $this->addToOrdersTables($request,null);
+        Mail::send(new OrderPlaced($order));
 
-        foreach (Cart::content() as $item) {
-          OrderDownload::create([
-            'order_id'=>$order->id,
-            'download_id'=>$item->model->id,
-            'quantity'=>$item->qty,
-          ]);
-        }
+
 Cart::instance('default')->destroy();
 session()->forget('coupon');
 return back()->with('success_message','Thank you! Your payment has been successful');
@@ -107,12 +87,46 @@ return back()->with('success_message','Thank you! Your payment has been successf
 
 
    } catch (CardErrorException $e) {
+     $this->addToOrdersTables($request,$e->getMessage());
       return back()->withErrors('Error!' .$e->getMessage());
       }
 
       // return back()->with('success_message','Thank you! Your payment has been successful');
  // return Redirect::back ();
       // dd($request->all());
+    }
+
+
+    protected function addToOrdersTables($request, $error){
+
+
+      //insert into orders mysql_list_tables
+      $order = Order::create([
+        'user_id'=>auth()->user() ? auth()->user()->id : null,
+        'billing_email'=> $request->email,
+        'billing_name' => $request->name,
+        'billing_address'=> $request->address,
+        'billing_city'  => $request->city,
+        'billing_country' =>$request->country,
+        //'billing_zip' => $request->zip-code,
+        'billing_phone' =>$request->tel,
+        'billing_name_on_card' =>$request->name_on_card,
+        'billing_discount'=>$this->getNumbers()->get('discount'),
+        'billing_discont_code'=>$this->getNumbers()->get('code'),
+        'billing_subtotal'=>$this->getNumbers()->get('newSubTotal'),
+        'billing_tax'=>$this->getNumbers()->get('newTax'),
+        'billing_total' =>$this->getNumbers()->get('newTotal'),
+        'error'=>$error,
+      ]);
+
+      foreach (Cart::content() as $item) {
+        OrderDownload::create([
+          'order_id'=>$order->id,
+          'download_id'=>$item->model->id,
+          'quantity'=>$item->qty,
+        ]);
+      }
+      return $order;
     }
 
     private function getNumbers(){

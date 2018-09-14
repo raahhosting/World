@@ -6,6 +6,29 @@
 
 
 <div class="container-fluid">
+  @if(session()->has('success_message'))
+  <div class="spacer"></div>
+  <div class="alert alert-success">
+    {{session()->get('success_message')}}
+
+  </div>
+  @endif
+  @if(count($errors)>0)
+
+  <div class="spacer"></div>
+  <div class="alert alert-danger">
+   <ul>
+@foreach($errors->all() as $error)
+
+<li>{!! $error!!}</li>
+
+@endforeach
+
+   </ul>
+
+  </div>
+
+  @endif
     <div class="row">
         <div class="col-sm-6 col-md-6 col-md-offset-1">
 
@@ -31,7 +54,7 @@
                     <tr>
                         <td class="col-sm-3 col-md-3">
                         <div class="media">
-                      
+
                             <a class="thumbnail pull-left" href="{{route('software.show',$item->model->slug)}}"> <img class="media-object" src="{{asset($item->model->image)}}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="{{route('software.show',$item->model->slug)}}">{{$item->model->title}}</a></h4>
@@ -107,6 +130,9 @@
         </div>
     </div>
 </div>
+
+
+@include('inc.footer')
 
 
 @endsection
